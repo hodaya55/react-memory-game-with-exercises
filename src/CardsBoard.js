@@ -24,9 +24,9 @@ export default class CardsBoard extends Component {
         { name: 'card1', img: '', flipped: false },
         { name: 'card1', img: '', flipped: false },
         { name: 'card2', img: '', flipped: false },
-        { name: 'card2', img: '', flipped: false },
-        { name: 'card3', img: '', flipped: false },
-        { name: 'card3', img: '', flipped: false }
+        { name: 'card2', img: '', flipped: false }
+        // { name: 'card3', img: '', flipped: false },
+        // { name: 'card3', img: '', flipped: false }
       ],
       stateGame: stateGameEnum.waitFirstCard
     }
@@ -53,7 +53,7 @@ export default class CardsBoard extends Component {
     if (!card.flipped) {
       switch (this.state.stateGame) {
         case stateGameEnum.waitFirstCard:
-          // save the first card that clicked, change the stateGame,
+          // save the first card that clicked, change the stateGame and flipp the first card
           cards = cards.map((c, i) => {
             if (i === index) {
               c.flipped = true;
@@ -79,7 +79,7 @@ export default class CardsBoard extends Component {
             });
           }
           else {
-            // to open the second card
+            // to  flipp the second card
             this.setState(() => {
               return { cardsList: cards, stateGame: stateGameEnum.wrong };
             });
@@ -104,24 +104,29 @@ export default class CardsBoard extends Component {
     }
   }
   refresh = () => {
-    //random
+    // reset the counting
+    this.finishCount = this.state.cardsList.length / 2;
+    //random the cards
     let randomArray = this.state.cardsList;
     randomArray = this.shuffle(randomArray);
-
-    this.setState({ cardsList: randomArray });
     // flipp back all the cards
-    randomArray = randomArray.map(card =>
-      card.flipped ? card.flipped = false : true
-    );
-
+    randomArray = randomArray.map(card => {
+      card.flipped ? card.flipped = false : null
+      return card;
+    })
+    this.setState({ cardsList: randomArray });
   }
   render() {
     return (
       <div>
-        <button onClick={this.refresh}>Refresh</button>
-        <h1>
-          {this.finishCount === 0 ? "You win!" : this.state.stateGame}
-        </h1>
+        {this.finishCount === 0 ?
+          <div>
+            <h1>You win!</h1>
+            <button onClick={this.refresh}>Play Again</button>
+          </div>
+          : <h1>{this.state.stateGame}</h1>}
+        <button onClick={this.refresh}>New Game</button>
+
         {this.state.cardsList.map((card, index) =>
           <Card key={index} onClick={this.clickCard} index={index} cardItem={card} />
         )}
