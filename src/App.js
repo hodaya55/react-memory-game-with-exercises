@@ -6,12 +6,13 @@ class App extends Component {
 
   constructor() {
     super();
-    this.state = {};
+    this.state = {timer:0, viewTimer:'00:00'};
   }
 
   render() {
     return (
       <div className="App">
+
         <CardsBoard />
       </div>
     );

@@ -13,8 +13,7 @@ const Card = (props) => {
   )
 }
 
-const stateGameEnum = { waitFirstCard: "waiting first card", waitSecondCard: "waiting second card", wrong: "wrong!" }
-
+const stateGameEnum = { waitFirstCard: "Waiting first card", waitSecondCard: "Waiting second card", wrong: "Wrong!" }
 
 export default class CardsBoard extends Component {
   constructor() {
@@ -29,9 +28,9 @@ export default class CardsBoard extends Component {
         { name: 'card3', img: '', flipped: false },
         { name: 'card3', img: '', flipped: false }
       ],
-      stateGame: stateGameEnum.waitFirstCard,
-      finishCount:this.state.cardsList.length
+      stateGame: stateGameEnum.waitFirstCard
     }
+    this.finishCount = this.state.cardsList.length / 2;
   }
   shuffle(a) {
     let j, x, i;
@@ -44,8 +43,6 @@ export default class CardsBoard extends Component {
     return a;
   }
   componentDidMount() {
-    console.log(this.state.finishCount);
-
     //* random the cards array
     let randomArray = this.state.cardsList;
     randomArray = this.shuffle(randomArray);
@@ -76,6 +73,7 @@ export default class CardsBoard extends Component {
           });
           // check if the two cards are equal
           if (card.name === this.state.firstCard.name) {
+            this.finishCount--;
             this.setState(() => {
               return { cardsList: cards, stateGame: stateGameEnum.waitFirstCard };
             });
@@ -85,19 +83,18 @@ export default class CardsBoard extends Component {
             this.setState(() => {
               return { cardsList: cards, stateGame: stateGameEnum.wrong };
             });
-
             // wrong - flipp back the two wrong open cards
             setTimeout(() => {
               let first = this.state.firstCard;
               let second = card;
-              cards = cards.filter(card => {
+              cards = cards.map(card => {
                 if (card === first || card === second) {
                   card.flipped = false;
                 }
                 return card;
               });
-              this.setState({ cardsList: cards, stateGame: stateGameEnum.waitFirstCard});
-            }, 1000);
+              this.setState({ cardsList: cards, stateGame: stateGameEnum.waitFirstCard });
+            }, 1500);
 
           }
           break;
@@ -106,11 +103,24 @@ export default class CardsBoard extends Component {
       }
     }
   }
+  refresh = () => {
+    //random
+    let randomArray = this.state.cardsList;
+    randomArray = this.shuffle(randomArray);
+
+    this.setState({ cardsList: randomArray });
+    // flipp back all the cards
+    randomArray = randomArray.map(card =>
+      card.flipped ? card.flipped = false : true
+    );
+
+  }
   render() {
     return (
       <div>
+        <button onClick={this.refresh}>Refresh</button>
         <h1>
-          {this.state.stateGame}
+          {this.finishCount === 0 ? "You win!" : this.state.stateGame}
         </h1>
         {this.state.cardsList.map((card, index) =>
           <Card key={index} onClick={this.clickCard} index={index} cardItem={card} />
