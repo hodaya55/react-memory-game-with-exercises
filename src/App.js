@@ -37,9 +37,9 @@ class App extends Component {
     // todo: check if the memo game was complete and the solve 5 excesise
 
   }
-  componentWillUnmount() {
-    clearInterval(this.countDown);
-  }
+  // componentWillUnmount() {
+  //   clearInterval(this.countDown);
+  // }
   render() {
     return (
       <div className="App">
