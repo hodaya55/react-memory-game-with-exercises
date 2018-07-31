@@ -28,6 +28,7 @@ class App extends Component {
     else {
       // count ==0
       clearInterval(this.countDown);
+      this.setState({ isStartGame: false });
       this.gameOver();
     }
   }
