@@ -1,14 +1,18 @@
 import React, { Component } from 'react'
-
-
+import _ from 'lodash';
+import card from './card.png';
 
 const Card = (props) => {
   const handleClick = () => {
     props.onClick(props.cardItem, props.index);
   }
   return (
-    <div className="card" onClick={handleClick}>
-      {props.cardItem.flipped ? props.cardItem.name : "####"}
+    <div className={props.cardItem.flipped ? "card" : "card"} onClick={handleClick}>
+      {
+        props.cardItem.flipped ?
+          <img src={props.cardItem.src} alt="card-front" className="back" />
+          : <img src={card} alt="card-back" className="" />
+      }
     </div>
   )
 }
@@ -16,38 +20,16 @@ const Card = (props) => {
 const stateGameEnum = { waitFirstCard: "Waiting first card", waitSecondCard: "Waiting second card", wrong: "Wrong!" }
 
 export default class CardsBoard extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       firstCard: '',
-      cardsList: [
-        { name: 'card1', img: '', flipped: false },
-        { name: 'card1', img: '', flipped: false },
-        { name: 'card2', img: '', flipped: false },
-        { name: 'card2', img: '', flipped: false }
-        // { name: 'card3', img: '', flipped: false },
-        // { name: 'card3', img: '', flipped: false }
-      ],
+      cardsList: this.props.cards,
       stateGame: stateGameEnum.waitFirstCard
     }
     this.finishCount = this.state.cardsList.length / 2;
   }
-  shuffle(a) {
-    let j, x, i;
-    for (i = a.length - 1; i > 0; i--) {
-      j = Math.floor(Math.random() * (i + 1));
-      x = a[i];
-      a[i] = a[j];
-      a[j] = x;
-    }
-    return a;
-  }
-  componentDidMount() {
-    //* random the cards array
-    let randomArray = this.state.cardsList;
-    randomArray = this.shuffle(randomArray);
-    this.setState({ cardsList: randomArray });
-  }
+
   clickCard = (card, index) => {
     let cards = this.state.cardsList;
     if (!card.flipped) {
@@ -105,31 +87,34 @@ export default class CardsBoard extends Component {
   }
   refresh = () => {
     // reset the counting
+    // ! pass finishCunt to be in the App comopoonnet instead of being here, and will be in the constructor with props
+
     this.finishCount = this.state.cardsList.length / 2;
-    //random the cards
+    //random the cards and flipp back all the cards
     let randomArray = this.state.cardsList;
-    randomArray = this.shuffle(randomArray);
-    // flipp back all the cards
-    randomArray = randomArray.map(card => {
-      card.flipped ? card.flipped = false : null
-      return card;
-    })
+    randomArray = _.shuffle(_.map(randomArray, obj => ({ ...obj, flipped: false })));
     this.setState({ cardsList: randomArray });
   }
   render() {
     return (
-      <div>
-        {this.finishCount === 0 ?
+      <div className="cardBord">
+        {/* {this.finishCount === 0 ?
           <div>
             <h1>You win!</h1>
             <button onClick={this.refresh}>Play Again</button>
           </div>
-          : <h1>{this.state.stateGame}</h1>}
-        <button onClick={this.refresh}>New Game</button>
+          : <h1>{this.state.stateGame}</h1>} */}
+        {/* //! or the timer is over??? */}
+        <h1>{this.finishCount === 0 ? "You win!" : this.state.stateGame}</h1>
 
-        {this.state.cardsList.map((card, index) =>
-          <Card key={index} onClick={this.clickCard} index={index} cardItem={card} />
-        )}
+        {/* <button onClick={this.refresh}>New Game</button> */}
+
+        <div className="cards">
+          {this.state.cardsList.map((card, index) =>
+            <Card key={index} onClick={this.clickCard} index={index} cardItem={card} />
+          )}
+        </div>
+
       </div>
     )
   }
