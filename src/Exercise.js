@@ -62,6 +62,8 @@ class Exercise extends Component {
 
         //return `${firstNum} ${operator} ${secondNum} = `; //good
     }
+
+    //e.target.value
     checkRes = ({ target: { value } }) => {
         if (value === this.result) {
             this.props.updateFunc(true);
@@ -77,7 +79,7 @@ class Exercise extends Component {
             <div className="exer">
                 {this.addExercise()}
                 {/* {this.exercise} */}
-                <input className="inputResulte" type="number" placeholder="?" onChange={this.checkRes} />
+                <input className="inputResulte" type="text" placeholder="?" onChange={this.checkRes} />
             </div>
         )
 
