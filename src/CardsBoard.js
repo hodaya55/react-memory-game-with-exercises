@@ -1,21 +1,5 @@
 import React, { Component } from 'react'
 import _ from 'lodash';
-import card from './card.png';
-
-const Card = (props) => {
-  const handleClick = () => {
-    props.clickCard(props.cardItem, props.index);
-  }
-  return (
-    <div className={props.cardItem.flipped ? "card" : "card"} onClick={handleClick}>
-      {
-        props.cardItem.flipped ?
-          <img src={props.cardItem.src} alt="card-front" className="back" />
-          : <img src={card} alt="card-back" className="" />
-      }
-    </div>
-  )
-}
 
 const stateGameEnum = { waitFirstCard: "Waiting first card", waitSecondCard: "Waiting second card", wrong: "Wrong!" }
 
