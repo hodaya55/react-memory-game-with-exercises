@@ -45,6 +45,7 @@ class App extends Component {
         <button disabled={this.state.isStartGame} onClick={this.startGame}>New Game</button>
         {this.state.isStartGame && <div>{this.state.viewTimer}</div>}
         <CardsBoard />
+        {/* <img className="Card-img" src={require('./flowerfield.jpg')} /> */}
       </div>
     );
   }
