@@ -73,13 +73,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Exercises />
         <button className="start-btn" onClick={this.startGame}>Start New Game</button>
         {this.state.isStartGame ?
+
           <div>
             <div className="timer" >
               {this.state.viewTimer}
             </div>
+            <Exercises />
+
             <CardsBoard cards={this.state.cards} />
           </div>
           :
