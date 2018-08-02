@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import _ from 'lodash';
+import Card from './Card';
 
 const stateGameEnum = { waitFirstCard: "Waiting first card", waitSecondCard: "Waiting second card", wrong: "Wrong!" }
 
