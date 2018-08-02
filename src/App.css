@@ -31,6 +31,12 @@
 /*exercises css component*/
 .exercises{
   position: absolute;
-  top: 50px;
+  top: 100px;
   right: 50px;
+}
+
+.inputResulte{  
+  width: 20px;
+  height: 15px;
+  text-align: center;
 }
