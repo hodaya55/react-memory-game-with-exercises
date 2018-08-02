@@ -80,6 +80,16 @@ export default class CardsBoard extends Component {
     randomArray = _.shuffle(_.map(randomArray, obj => ({ ...obj, flipped: false })));
     this.setState({ cardsList: randomArray });
   }
+  componentDidUpdate(prevProps) {
+    if (this.props.cardsList !== prevProps.cardsList) {
+      let randomArray = this.props.cardsList;
+      randomArray = _.shuffle(_.map(randomArray, obj => ({ ...obj, flipped: false })));
+      this.setState({
+        cardsList: randomArray
+      });
+
+    }
+  }
   render() {
     return (
       <div className="cardBord">

@@ -4,7 +4,46 @@ import Exercises from './Exercises';
 import CardsBoard from './CardsBoard';
 import _ from 'lodash';
 import listImgSrc from './listImgSrc'
-// import imgs from './imgs'
+
+
+class Timer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      counterTimer: props.timer * 60, viewTimer: ''
+    };
+  }
+  down() {
+    let count = this.state.counterTimer;
+    if (count > 0) {
+      count--;
+      let m = Math.floor(count / 60);
+      let s = count % 60;
+      let showTimer = `${m < 10 ? ('0' + m) : m}:${s < 10 ? ('0' + s) : s}`;
+      this.setState({ counterTimer: count, viewTimer: showTimer });
+    }
+    else {
+      // count ==0
+      clearInterval(this.countDown);
+      // pass throu func that timer is over or maybe pass all the time what is time ?
+      // this.gameOver();
+    }
+  }
+  componentDidMount() {
+    this.countDown = setInterval(() => this.down(), 1000);
+  }
+  render() {
+    return (
+      <div className="timer">
+        {this.state.viewTimer}
+      </div>
+    )
+  }
+}
+
+
+
+
 
 class App extends Component {
   //! check if it shuffle and flipp bacak all the cards after click on start new game
@@ -22,35 +61,14 @@ class App extends Component {
   startGame = () => {
     console.log("start new game");
 
-    clearInterval(this.countDown);
+    // clearInterval(this.countDown);
     //! check why is it not shuffle and flipp bacak all the cards after click on start new game
     let cards1 = this.state.cards;
     const cards = _.shuffle(_.map(cards1, obj => ({ ...obj, flipped: false })))
-    // this.setState({ isStartGame: true, counterTimer: this.props.timer * 60, viewTimer: '', cards: cards });
-    // , cards: this.createCardsArray() });
     this.setState({ isStartGame: true, counterTimer: this.props.timer * 60, viewTimer: '', cards: cards });
-    // this.cards = this.createCardsArray();
-    // console.log('cards');
-    // console.log(this.cards);
 
-    this.countDown = setInterval(() => this.down(), 1000);
   }
-  down() {
-    let count = this.state.counterTimer;
-    if (this.state.isStartGame && count > 0) {
-      count--;
-      let m = Math.floor(count / 60);
-      let s = count % 60;
-      let showTimer = `${m < 10 ? ('0' + m) : m}:${s < 10 ? ('0' + s) : s}`;
-      this.setState(() => { return { counterTimer: count, viewTimer: showTimer }; });
-    }
-    else {
-      // count ==0
-      clearInterval(this.countDown);
-      this.setState({ isStartGame: false, counterTimer: this.props.timer * 60 });
-      this.gameOver();
-    }
-  }
+
   gameOver = () => {
     console.log('game over');
     // todo: check if the memo game was complete and the solve 5 excesise
@@ -77,11 +95,8 @@ class App extends Component {
         {this.state.isStartGame ?
 
           <div>
-            <div className="timer" >
-              {this.state.viewTimer}
-            </div>
-            <Exercises />
-
+            <Timer timer={this.props.timer} />
+            <Exercises isStartGame={this.state.isStartGame} />
             <CardsBoard cards={this.state.cards} />
           </div>
           :
