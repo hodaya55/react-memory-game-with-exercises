@@ -4,7 +4,7 @@ import card from './card.png';
 
 const Card = (props) => {
   const handleClick = () => {
-    props.onClick(props.cardItem, props.index);
+    props.clickCard(props.cardItem, props.index);
   }
   return (
     <div className={props.cardItem.flipped ? "card" : "card"} onClick={handleClick}>
@@ -76,7 +76,7 @@ export default class CardsBoard extends Component {
                 return card;
               });
               this.setState({ cardsList: cards, stateGame: stateGameEnum.waitFirstCard });
-            }, 1500);
+            }, 1200);
 
           }
           break;
@@ -111,7 +111,7 @@ export default class CardsBoard extends Component {
 
         <div className="cards">
           {this.state.cardsList.map((card, index) =>
-            <Card key={index} onClick={this.clickCard} index={index} cardItem={card} />
+            <Card key={index} clickCard={this.clickCard} index={index} cardItem={card} />
           )}
         </div>
 

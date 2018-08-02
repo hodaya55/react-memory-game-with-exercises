@@ -13,23 +13,24 @@ class App extends Component {
     this.state = {
       counterTimer: props.timer * 60, viewTimer: '',
       isStartGame: false
-      // , cards: this.createCardsArray()
+      , cards: this.createCardsArray()
       // , cards: []
     };
-    this.cards = [];
+    // this.cards = [];
   }
   startGame = () => {
     console.log("start new game");
 
     clearInterval(this.countDown);
     //! check why is it not shuffle and flipp bacak all the cards after click on start new game
-    // const cards = _.shuffle(_.map(this.state.cards, obj => ({ ...obj, flipped: false })))
+    let cards1 = this.state.cards;
+    const cards = _.shuffle(_.map(cards1, obj => ({ ...obj, flipped: false })))
     // this.setState({ isStartGame: true, counterTimer: this.props.timer * 60, viewTimer: '', cards: cards });
     // , cards: this.createCardsArray() });
-    this.setState({ isStartGame: true, counterTimer: this.props.timer * 60, viewTimer: '' });
-    this.cards = this.createCardsArray();
-    console.log('cards');
-    console.log(this.cards);
+    this.setState({ isStartGame: true, counterTimer: this.props.timer * 60, viewTimer: '', cards: cards });
+    // this.cards = this.createCardsArray();
+    // console.log('cards');
+    // console.log(this.cards);
 
     this.countDown = setInterval(() => this.down(), 1000);
   }
@@ -77,7 +78,7 @@ class App extends Component {
             <div className="timer" >
               {this.state.viewTimer}
             </div>
-            <CardsBoard cards={this.cards} />
+            <CardsBoard cards={this.state.cards} />
           </div>
           :
           <h1 className="header-play-game" >Start Playing Now!</h1>
