@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Exercises from './Exercises';
 import CardsBoard from './CardsBoard';
+import Timer from './Timer'
 import _ from 'lodash';
 import listImgSrc from './listImgSrc'
 
@@ -11,12 +12,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      counterTimer: props.timer * 60, viewTimer: '',
-      isStartGame: false
-      , cards: this.createCardsArray()
-      // , cards: []
+      isStartGame: false,
+      isWin: false,
+      cards: this.createCardsArray()
     };
-    // this.cards = [];
   }
   startGame = () => {
     console.log("start new game");

@@ -4,8 +4,9 @@ export default class Timer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      counterTimer: props.timer * 60, viewTimer: ''
+      counterTimer: 1 + props.timer * 60, viewTimer: ''
     };
+    clearInterval(this.countDown);
   }
   down() {
     let count = this.state.counterTimer;
