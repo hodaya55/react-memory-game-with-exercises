@@ -38,10 +38,16 @@ export default class Timer extends Component {
   }
   render() {
     return (
-      <div className="timer">
-        {!this.props.isWin ?
-          this.state.viewTimer : "00:00"}
+      this.state.counterTimer == 0 ?
+        <div className="timer-over">
+          sorry, you loose! ¯\_(ツ)_/¯
       </div>
+        :
+        <div className="timer">
+          {!this.props.isWin ?
+            this.state.viewTimer : "00:00"}
+        </div>
+
     )
   }
 }
