@@ -17,6 +17,11 @@ class Exercises extends Component {
             count++;
         }
         this.setState({ countCorrect: count });
+        if (count === this.props.count) {
+            this.props.checkWin("math");
+            // this.setState({ countCorrect: 0 });
+
+        }
     }
     //calculateResulte give me the resulte of the exercise
     calculateResulte(first, second, opp) {
@@ -55,7 +60,11 @@ class Exercises extends Component {
         console.log("The exercise: " + theExerciseString + '\nThe resulte: ' + resultExe);
         return theExerciseString;
     }
-
+    componentWillReceiveProps(newProps) {
+        this.setState({
+            isStartGame: newProps.isStartGame, countCorrect: 0
+        });
+    }
     render() {
         return (
             <div className="exercises">

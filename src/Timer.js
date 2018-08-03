@@ -24,14 +24,23 @@ export default class Timer extends Component {
       // this.gameOver();
     }
   }
-
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      counterTimer: 1 + newProps.timer * 60, viewTimer: ''
+    });
+    if (this.props.isWin) { return; }
+  }
+  componentWillUnmount() {
+    clearInterval(this.countDown);
+  }
   componentDidMount() {
     this.countDown = setInterval(() => this.down(), 1000);
   }
   render() {
     return (
       <div className="timer">
-        {this.state.viewTimer}
+        {!this.props.isWin ?
+          this.state.viewTimer : "00:00"}
       </div>
     )
   }

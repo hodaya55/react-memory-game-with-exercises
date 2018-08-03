@@ -12,7 +12,7 @@ export default class CardsBoard extends Component {
       cardsList: this.props.cards,
       stateGame: stateGameEnum.waitFirstCard
     }
-    this.finishCount = this.state.cardsList.length / 2;
+    this.finishCount = this.props.cards.length / 2;
   }
 
   clickCard = (card, index) => {
@@ -40,10 +40,18 @@ export default class CardsBoard extends Component {
           });
           // check if the two cards are equal
           if (card.name === this.state.firstCard.name) {
+
             this.finishCount--;
+
             this.setState(() => {
               return { cardsList: cards, stateGame: stateGameEnum.waitFirstCard };
             });
+
+            if (this.finishCount === 0) {
+              //* if the user solve the memo-game
+              this.props.checkWin("memo");
+            }
+
           }
           else {
             // to  flipp the second card
@@ -80,30 +88,31 @@ export default class CardsBoard extends Component {
     randomArray = _.shuffle(_.map(randomArray, obj => ({ ...obj, flipped: false })));
     this.setState({ cardsList: randomArray });
   }
-  componentDidUpdate(prevProps) {
-    if (this.props.cardsList !== prevProps.cardsList) {
-      let randomArray = this.props.cardsList;
-      randomArray = _.shuffle(_.map(randomArray, obj => ({ ...obj, flipped: false })));
-      this.setState({
-        cardsList: randomArray
-      });
 
-    }
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      cardsList: newProps.cards, firstCard: '',
+      stateGame: stateGameEnum.waitFirstCard
+    });
+    this.finishCount = newProps.cards.length / 2;
+
   }
+
   render() {
     return (
       <div className="cardBord">
-        {/* {this.finishCount === 0 ?
-          <div>
-            <h1>You win!</h1>
-            <button onClick={this.refresh}>Play Again</button>
-          </div>
-          : <h1>{this.state.stateGame}</h1>} */}
         {/* //! or the timer is over??? */}
-        <h1>{this.finishCount === 0 ? "You win!" : this.state.stateGame}</h1>
+        <h1>
 
-        {/* <button onClick={this.refresh}>New Game</button> */}
+          {/* {this.finishCount === 0 ? "You win!" :
+            this.state.stateGame} */}
 
+          {this.finishCount === 0 ? "" :
+            this.state.stateGame}
+
+          {/* {this.state.stateGame} */}
+
+        </h1>
         <div className="cards">
           {this.state.cardsList.map((card, index) =>
             <Card key={index} clickCard={this.clickCard} index={index} cardItem={card} />
