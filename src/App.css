@@ -2,23 +2,69 @@
   text-align: center;
 }
 
-.card {
+/*=====================================================
+card
+=======================================================*/
+
+.flip {
+  -webkit-perspective: 800;
+  perspective: 800;
   width: 100px;
-  float: left;
   height: 175px;
+  position: relative;
+  float: left;
   border: 3px solid black;
-  /* background: rgb(211, 108, 12); */
   margin: 30px;
-  line-height: 175px;
-  cursor: pointer;
-  transition: transform 1s;
-  transform-style: preserve-3d;
+  border-radius: 10px;
+  /* margin: 50px auto; */
 }
 
-img {
-  width: 100px;
-  height: 175px;
+.flip .card.flipped {
+  -webkit-transform: rotatey(-180deg);
+  transform: rotatey(-180deg);
 }
+
+.flip .card {
+  width: 100%;
+  height: 100%;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.flip .card .face {
+  width: 100%;
+  height: 100%;
+  /* position: absolute; */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  z-index: 2;
+  font-family: Georgia;
+  font-size: 3em;
+  text-align: center;
+  line-height: 200px;
+}
+
+.flip .card .front {
+  /* position: absolute; */
+  z-index: 1;
+  /* background: black; */
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.flip .card .back {
+  -webkit-transform: rotatey(-180deg);
+  transform: rotatey(-180deg);
+  /* background: blue; */
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+/*=====================================================
+end card
+=======================================================*/
 
 .cardBord {
   text-align: center;
@@ -36,23 +82,15 @@ img {
   clear: both;
 }
 
-.back {
-  transform: rotateY(180deg);
-}
-
-.card .flipp {
-  transform: rotateY(180deg);
-}
-
-
 /*exercises css component*/
-.exercises{
+
+.exercises {
   position: absolute;
   top: 100px;
   right: 50px;
 }
 
-.inputResulte{  
+.inputResulte {
   width: 20px;
   height: 15px;
   text-align: center;
@@ -63,13 +101,13 @@ img {
 }
 
 .timer {
-  font-size: 60px;
+  font-size: 45px;
   background: #760b82a8;
-  border-radius: 50%;
-  width: 150px;
-  height: 150px;
-  line-height: 150px;
-  padding: 40px;
+  border-radius: 20%;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  padding: 30px;
   border: solid 8px #bb4ac7;
   margin: auto;
   color: #fbe10f;
