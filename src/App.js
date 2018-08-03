@@ -2,91 +2,76 @@ import React, { Component } from 'react';
 import './App.css';
 import Exercises from './Exercises';
 import CardsBoard from './CardsBoard';
+import Timer from './Timer'
 import _ from 'lodash';
 import listImgSrc from './listImgSrc'
-// import imgs from './imgs'
 
 class App extends Component {
-  //! check if it shuffle and flipp bacak all the cards after click on start new game
-
   constructor(props) {
     super(props);
     this.state = {
-      counterTimer: props.timer * 60, viewTimer: '',
-      isStartGame: false
-      , cards: this.createCardsArray()
-      // , cards: []
+      isStartGame: false,
+      isWin: false
+      // , memo: false, math: false
     };
-    // this.cards = [];
+    this.memo = false;
+    this.math = false;
+    this.isStartGame = false;
   }
   startGame = () => {
     console.log("start new game");
-
-    clearInterval(this.countDown);
-    //! check why is it not shuffle and flipp bacak all the cards after click on start new game
-    let cards1 = this.state.cards;
-    const cards = _.shuffle(_.map(cards1, obj => ({ ...obj, flipped: false })))
-    // this.setState({ isStartGame: true, counterTimer: this.props.timer * 60, viewTimer: '', cards: cards });
-    // , cards: this.createCardsArray() });
-    this.setState({ isStartGame: true, counterTimer: this.props.timer * 60, viewTimer: '', cards: cards });
-    // this.cards = this.createCardsArray();
-    // console.log('cards');
-    // console.log(this.cards);
-
-    this.countDown = setInterval(() => this.down(), 1000);
+    let cards1 = this.createCardsArray();
+    this.setState({
+      isStartGame: true, cards: cards1, isWin: false
+      // , memo: false, math: false
+    });
   }
-  down() {
-    let count = this.state.counterTimer;
-    if (this.state.isStartGame && count > 0) {
-      count--;
-      let m = Math.floor(count / 60);
-      let s = count % 60;
-      let showTimer = `${m < 10 ? ('0' + m) : m}:${s < 10 ? ('0' + s) : s}`;
-      this.setState(() => { return { counterTimer: count, viewTimer: showTimer }; });
-    }
-    else {
-      // count ==0
-      clearInterval(this.countDown);
-      this.setState({ isStartGame: false, counterTimer: this.props.timer * 60 });
-      this.gameOver();
-    }
-  }
-  gameOver = () => {
-    console.log('game over');
+
+  checkWin = (game) => {
+    console.log(game + ' -game solve');
     // todo: check if the memo game was complete and the solve 5 excesise
     //! handle what if the user done the memo game and solve 5 targilim -begore the timer is over
 
+    this[game] = true;
+    console.log('this.memo');
+    console.log(this.memo);
+    console.log('this.math');
+    console.log(this.math);
+
+    // if (this.state.memo && this.state.math) {
+    if (this.memo && this.math) {
+      setTimeout(() => {
+        this.setState({ isWin: true, isStartGame: false });
+      }, 500);
+    }
+
   }
-  // componentWillUnmount() {
-  //   clearInterval(this.countDown);
-  // }
   createCardsArray = () => {
     const tempArray = _.shuffle(listImgSrc);
     let cardsArray = [];
     for (let i = 0; i < this.props.cardsNum / 2; i++) {
-      cardsArray.push({ src: tempArray[i], name: `card${i + 1}` });
-      cardsArray.push({ src: tempArray[i], name: `card${i + 1}` });
+      cardsArray.push({ src: tempArray[i], name: `card${i + 1}`, flipped: false });
+      cardsArray.push({ src: tempArray[i], name: `card${i + 1}`, flipped: false });
     }
-    //* random the cards array and flipp back all cards
-    return _.shuffle(_.map(cardsArray, obj => ({ ...obj, flipped: false })));
+    //* random the cards array
+    return _.shuffle(cardsArray);
   }
+
   render() {
     return (
       <div className="App">
         <button className="start-btn" onClick={this.startGame}>Start New Game</button>
+        <p className="need-solve">You need to solve the memory game and solve {this.props.count} exercises in {this.props.timer} minuts. Go!</p>
         {this.state.isStartGame ?
-
           <div>
-            <div className="timer" >
-              {this.state.viewTimer}
-            </div>
-            <Exercises />
-
-            <CardsBoard cards={this.state.cards} />
+            <Timer timer={this.props.timer} isWin={this.state.isWin} />
+            <Exercises isStartGame={this.state.isStartGame} count={this.props.count} checkWin={this.checkWin} />
+            <CardsBoard cards={this.state.cards} isStartGame={this.state.isStartGame} checkWin={this.checkWin} />
           </div>
           :
-          <h1 className="header-play-game" >Start Playing Now!</h1>
-          // <CardsBoard cards={this.state.cards} />
+          (this.state.isWin) ? <div className="win-message">You win!!! </div>
+            :
+            <h1 className="header-play-game" >Start Playing Now!</h1>
         }
       </div>
     );
