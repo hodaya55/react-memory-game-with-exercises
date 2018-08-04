@@ -39,15 +39,16 @@ export default class Timer extends Component {
   }
   render() {
     return (
-      this.state.counterTimer == 0 ?
-        <div className="timer-over">
-          sorry, you loose! ¯\_(ツ)_/¯
+      // this.state.counterTimer == 0 ?
+      //   <div className="timer-over">
+      //     sorry, you loose! ¯\_(ツ)_/¯
+      //     <p className="need-solve">You need to solve the memory game and solve {this.props.count} exercises in {this.props.timer} minuts. Go!</p>
+      //   </div>
+      //   :
+      <div className="timer">
+        {!this.props.isWin ?
+          this.state.viewTimer : "00:00"}
       </div>
-        :
-        <div className="timer">
-          {!this.props.isWin ?
-            this.state.viewTimer : "00:00"}
-        </div>
 
     )
   }

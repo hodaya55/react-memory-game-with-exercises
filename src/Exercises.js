@@ -48,10 +48,15 @@ class Exercises extends Component {
     //give my 2 random numbers
     addExercise = () => {
         let firstNum = Math.floor((Math.random() * 14) + 1);
-        let secondNum = Math.floor((Math.random() * 10) + 1);
-        let arrOperator = ["+", "-", "*"];
-        // let arrOperator = ["+", "-", "*", "/"];
+        let secondNum = Math.floor((Math.random() * 11) + 1);
+        let arrOperator = ["+", "-", "*", "/"];
         let operator = arrOperator[Math.floor(Math.random() * arrOperator.length)];
+        if (operator === "/") {
+            while (firstNum / secondNum % 2 !== 0) {
+                firstNum = Math.floor((Math.random() * 14) + 1);
+                secondNum = Math.floor((Math.random() * 11) + 2);
+            }
+        }
         let resultExe = this.calculateResulte(firstNum, secondNum, operator);
         let theExerciseString = `${firstNum} ${operator} ${secondNum} = `;
         this.result = resultExe;
