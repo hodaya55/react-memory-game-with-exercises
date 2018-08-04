@@ -9,14 +9,17 @@ card
 .flip {
   -webkit-perspective: 800;
   perspective: 800;
-  width: 100px;
-  height: 175px;
+  /* width: 100px; */
+  width: 15%;
+  height: 153px;
   position: relative;
-  float: left;
-  border: 3px solid black;
-  margin: 30px;
+  /* float: left; */
+  /* border: 3px solid black; */
+  margin: 20px;
   border-radius: 10px;
   /* margin: 50px auto; */
+  margin: 11px;
+  display: inline-block;
 }
 
 .flip .card.flipped {
@@ -29,8 +32,10 @@ card
   height: 100%;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
+  /* -webkit-transition: 0.5s;
+  transition: 0.5s; */
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 .flip .card .face {
@@ -40,10 +45,6 @@ card
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   z-index: 2;
-  font-family: Georgia;
-  font-size: 3em;
-  text-align: center;
-  line-height: 200px;
 }
 
 .flip .card .front {
@@ -69,10 +70,11 @@ end card
 .cardBord {
   text-align: center;
   margin: 0 auto;
-  width: max-content;
+  margin-top: 40px;
+  /* width: max-content; */
 }
 
-.cards:before,
+/* .cards:before,
 .cards:after {
   display: table;
   content: '';
@@ -80,6 +82,13 @@ end card
 
 .cards:after {
   clear: both;
+} */
+
+.cards {
+  /* display: flex;
+  justify-content: center; */
+  margin-left: 113px;
+  margin-right: 113px;
 }
 
 /*exercises css component*/
@@ -91,8 +100,8 @@ end card
 }
 
 .inputResulte {
-  width: 25px;
-  height: 19px;
+  width: 30px;
+  height: 25px;
   text-align: center;
 }
 
@@ -126,15 +135,23 @@ end card
   box-shadow: inset 0 0 20px 3px black;
 }
 
-.timer-over {}
+.timer-over,
+.win-message {
+  font-size: 25px;
+  font-weight: bold;
+}
 
 .start-btn {
-  -webkit-box-shadow: 1px 2px 17px 1px #bb4ac7b8;
-  box-shadow: 1px 2px 17px 1px #950d0e;
+  /* -webkit-box-shadow: 1px 2px 17px 1px #bb4ac7b8; */
+  /* box-shadow: 1px 2px 17px 1px #950d0e; */
   text-shadow: 1px 0px black;
-  background-color: #e4b510;
+  background-color: #ffb72c;
   color: #9b0d09;
   font-size: 35px;
   border-radius: 14px;
   margin: 24px;
+}
+
+.need-solve {
+  font-size: 25px;
 }

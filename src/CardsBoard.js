@@ -70,10 +70,10 @@ export default class CardsBoard extends Component {
   render() {
     return (
       <div className="cardBord">
-        <h1>
+        <h2>
           {this.finishCount === 0 ? "" :
             this.state.stateGame}
-        </h1>
+        </h2>
         <div className="cards">
           {this.state.cardsList.map((card, index) =>
             <Card key={index} clickCard={this.clickCard} index={index} cardItem={card} />

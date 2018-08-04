@@ -20,15 +20,16 @@ export default class Timer extends Component {
     else {
       // count ==0
       clearInterval(this.countDown);
-      // pass throu func that timer is over or maybe pass all the time what is time ?
-      // this.gameOver();
+      this.props.checkTimerOver();
     }
   }
   componentWillReceiveProps(newProps) {
+    clearInterval(this.countDown);
     this.setState({
-      counterTimer: 1 + newProps.timer * 60, viewTimer: ''
+      counterTimer: 1 + newProps.timer * 60, viewTimer: '', isWin: false
     });
-    if (this.props.isWin) { return; }
+
+    this.countDown = setInterval(() => this.down(), 1000);
   }
   componentWillUnmount() {
     clearInterval(this.countDown);
