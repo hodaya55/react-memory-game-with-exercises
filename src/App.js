@@ -12,25 +12,21 @@ class App extends Component {
     this.state = {
       isStartGame: false,
       isWin: false
-      // , memo: false, math: false
     };
     this.memo = false;
     this.math = false;
-    this.isStartGame = false;
+    this.isTimerOver = false;
   }
   startGame = () => {
     console.log("start new game");
     let cards1 = this.createCardsArray();
     this.setState({
-      isStartGame: true, cards: cards1, isWin: false
-      // , memo: false, math: false
+      isStartGame: true, cards: cards1, isWin: false, isTimerOver: false
     });
   }
 
   checkWin = (game) => {
     console.log(game + ' -game solve');
-    // todo: check if the memo game was complete and the solve 5 excesise
-    //! handle what if the user done the memo game and solve 5 targilim -begore the timer is over
 
     this[game] = true;
     console.log('this.memo');
@@ -41,10 +37,13 @@ class App extends Component {
     // if (this.state.memo && this.state.math) {
     if (this.memo && this.math) {
       setTimeout(() => {
-        this.setState({ isWin: true, isStartGame: false });
+        this.setState({ isWin: true, isStartGame: false, isTimerOver: false });
       }, 500);
-    }
+      this.memo = false;
+      this.math = false;
+      this.isTimerOver = false;
 
+    }
   }
   createCardsArray = () => {
     const tempArray = _.shuffle(listImgSrc);
@@ -56,22 +55,46 @@ class App extends Component {
     //* random the cards array
     return _.shuffle(cardsArray);
   }
-
+  checkTimerOver = () => {
+    // this.isTimerOver = true;
+    this.setState({ isTimerOver: true });
+  }
   render() {
     return (
       <div className="App">
         <button className="start-btn" onClick={this.startGame}>Start New Game</button>
-        <p className="need-solve">You need to solve the memory game and solve {this.props.count} exercises in {this.props.timer} minuts. Go!</p>
-        {this.state.isStartGame ?
+        {/* <p className="need-solve">You need to solve the memory game and solve {this.props.count} exercises in {this.props.timer} minuts. Go!</p> */}
+        {/* {this.state.isStartGame ?
           <div>
             <Timer timer={this.props.timer} isWin={this.state.isWin} />
             <Exercises isStartGame={this.state.isStartGame} count={this.props.count} checkWin={this.checkWin} />
             <CardsBoard cards={this.state.cards} isStartGame={this.state.isStartGame} checkWin={this.checkWin} />
           </div>
           :
-          (this.state.isWin) ? <div className="win-message">You win!!! </div>
+          (this.state.isWin) ? <div className="win-message">You win!!! ツ </div>
             :
-            <h1 className="header-play-game" >Start Playing Now!</h1>
+            <div>
+              <p className="need-solve">You need to solve the memory game and solve {this.props.count} exercises in {this.props.timer} minuts. Go!</p>
+              <h1 className="header-play-game" >Start Playing Now!</h1>
+            </div>
+        } */}
+
+        {
+          // !this.state.isWin &&
+          !this.state.isTimerOver &&
+            this.state.isStartGame ?
+            <div>
+              <Timer timer={this.props.timer} isWin={this.state.isWin} checkTimerOver={this.checkTimerOver} />
+              <Exercises isStartGame={this.state.isStartGame} count={this.props.count} checkWin={this.checkWin} />
+              <CardsBoard cards={this.state.cards} isStartGame={this.state.isStartGame} checkWin={this.checkWin} />
+            </div>
+            :
+            (this.state.isWin) ? <div className="win-message">You win!!! ツ </div>
+              :
+              <div>
+                <p className="need-solve">You need to solve the memory game and solve {this.props.count} exercises in {this.props.timer} minuts. Go!</p>
+                <h1 className="header-play-game" >Start Playing Now!</h1>
+              </div>
         }
       </div>
     );

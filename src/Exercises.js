@@ -45,19 +45,19 @@ class Exercises extends Component {
         return calcResulte;
     }
 
-    //give my 2 random numbers between 1 - 10
+    //give my 2 random numbers
     addExercise = () => {
-        let firstNum = Math.floor((Math.random() * 10) + 1);
+        let firstNum = Math.floor((Math.random() * 14) + 1);
         let secondNum = Math.floor((Math.random() * 10) + 1);
-        // let arrOperator = ["+", "-", "*"];
-        let arrOperator = ["+", "-", "*", "/"];
+        let arrOperator = ["+", "-", "*"];
+        // let arrOperator = ["+", "-", "*", "/"];
         let operator = arrOperator[Math.floor(Math.random() * arrOperator.length)];
         let resultExe = this.calculateResulte(firstNum, secondNum, operator);
         let theExerciseString = `${firstNum} ${operator} ${secondNum} = `;
         this.result = resultExe;
-        console.log('this.result');
-        console.log(this.result);
-        console.log("The exercise: " + theExerciseString + '\nThe resulte: ' + resultExe);
+        // console.log('this.result');
+        // console.log(this.result);
+        // console.log("The exercise: " + theExerciseString + '\nThe resulte: ' + resultExe);
         return theExerciseString;
     }
     componentWillReceiveProps(newProps) {
