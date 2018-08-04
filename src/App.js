@@ -89,12 +89,25 @@ class App extends Component {
               <CardsBoard cards={this.state.cards} isStartGame={this.state.isStartGame} checkWin={this.checkWin} />
             </div>
             :
-            (this.state.isWin) ? <div className="win-message">You win!!! ツ </div>
-              :
-              <div>
-                <p className="need-solve">You need to solve the memory game and solve {this.props.count} exercises in {this.props.timer} minuts. Go!</p>
-                <h1 className="header-play-game" >Start Playing Now!</h1>
-              </div>
+            this.state.isWin && <div className="win-message">You win!!! ツ </div>
+        }
+        {
+          (
+            // this.state.isTimerOver ||
+            !this.state.isStartGame) &&
+          <div>
+            <p className="need-solve">You need to solve the memory game and solve {this.props.count} exercises in {this.props.timer}{this.props.timer == "1" ? " minute" : " minutes"}. Go!</p>
+            <h1 className="header-play-game" >Start Playing Now!</h1>
+          </div>
+        }
+        {
+          this.state.isTimerOver &&
+          <div className="timer-over">
+            sorry, you loose! ¯\_(ツ)_/¯
+            <p className="need-solve">You need to solve the memory game and solve {this.props.count} exercises in {this.props.timer}{this.props.timer == "1" ? " minute" : " minutes"}. Go!</p>
+          </div>
+        }
+
         }
       </div>
     );
