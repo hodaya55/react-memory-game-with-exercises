@@ -14,7 +14,6 @@ const Card = (props) => {
           <img src={props.cardItem.src} alt="card-back" className="face back" />
           : <img src={card} alt="card-front" className="face front" />}
       </div>
-
     </div>
   )
 
