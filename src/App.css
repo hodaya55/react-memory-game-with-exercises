@@ -7,8 +7,8 @@ card
 =======================================================*/
 
 .flip {
-  -webkit-perspective: 800;
-  perspective: 800;
+  /* -webkit-perspective: 800;
+  perspective: 800; */
   /* width: 100px; */
   width: 15%;
   height: 153px;
@@ -23,8 +23,8 @@ card
 }
 
 .flip .card.flipped {
-  -webkit-transform: rotatey(-180deg);
-  transform: rotatey(-180deg);
+  /* -webkit-transform: rotatey(-180deg);
+  transform: rotatey(-180deg); */
 }
 
 .flip .card {
@@ -56,8 +56,8 @@ card
 }
 
 .flip .card .back {
-  -webkit-transform: rotatey(-180deg);
-  transform: rotatey(-180deg);
+  /* -webkit-transform: rotatey(-180deg);
+  transform: rotatey(-180deg); */
   /* background: blue; */
   cursor: pointer;
   border-radius: 10px;
