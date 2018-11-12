@@ -3,7 +3,7 @@
 }
 
 /*=====================================================
-card
+css flipp card
 =======================================================*/
 
 .flip {
@@ -20,6 +20,7 @@ card
   /* margin: 50px auto; */
   margin: 11px;
   display: inline-block;
+  /* box-shadow: 1px 1px 4px 2px white; */
 }
 
 .flip .card.flipped {
@@ -28,6 +29,8 @@ card
 }
 
 .flip .card {
+  box-shadow: 1px 1px 4px 2px white;
+  border-radius: 10px;
   width: 100%;
   height: 100%;
   -webkit-transform-style: preserve-3d;
@@ -64,45 +67,42 @@ card
 }
 
 /*=====================================================
-end card
+css cards
 =======================================================*/
 
 .cardBord {
-  text-align: center;
+  /* text-align: center; */
   margin: 0 auto;
   margin-top: 40px;
   /* width: max-content; */
 }
 
-/* .cards:before,
-.cards:after {
-  display: table;
-  content: '';
+.cardBord h2 {
+  letter-spacing: 2px;
+  text-shadow: 2px 0 black;
 }
 
-.cards:after {
-  clear: both;
-} */
-
 .cards {
-  /* display: flex;
-  justify-content: center; */
-  margin-left: 113px;
-  margin-right: 113px;
+  width: 75vw;
 }
 
 /*exercises css component*/
 
 .exercises {
-  position: absolute;
-  top: 170px;
-  right: 56px;
+  margin-top: 40px;
+  height: 100%;
+  /* padding: 14px; */
+  margin-left: 30px;
+  text-shadow: 2px 0 black;
+  width: 24vw;
 }
 
 .inputResulte {
-  width: 30px;
-  height: 25px;
+  width: 55px;
+  height: 35px;
+  padding: 2px;
   text-align: center;
+  font-size: inherit;
 }
 
 .exer {
@@ -111,12 +111,14 @@ end card
 
 .countCorrect {
   font-weight: bold;
+  letter-spacing: 2px;
 }
 
-/***end css execises **/
+/***css execises **/
 
 .header-play-game {
-  font-size: 70px;
+  text-shadow: 7px -4px 4px black;
+  font-size: 65px;
 }
 
 .timer {
@@ -139,19 +141,62 @@ end card
 .win-message {
   font-size: 40px;
   font-weight: bold;
+  margin-top: 37px;
+  text-shadow: 3px 0 2px black;
 }
 
 .start-btn {
   /* -webkit-box-shadow: 1px 2px 17px 1px #bb4ac7b8; */
   /* box-shadow: 1px 2px 17px 1px #950d0e; */
   text-shadow: 1px 0px black;
-  background-color: #ffb72c;
+  background-color: #ffffffbd;
   color: #9b0d09;
   font-size: 35px;
   border-radius: 14px;
-  margin: 24px;
+  margin: 11px auto;
+  outline: none;
+  padding: 8px;
+  border: none;
+  cursor: pointer;
 }
 
 .need-solve {
   font-size: 25px;
+  text-shadow: 3px 0 2px black;
+}
+
+.container-games {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.isCorrect {
+  margin-left: 5px;
+  font-size: 30px;
+  animation: blink 0.5s linear infinite;
+}
+
+.isCorrect.green {
+  color: green;
+}
+
+.isCorrect.red {
+  color: red;
+}
+
+.isCorrect.blink {
+  animation: blink 0.5s linear infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: .5;
+  }
+  100% {
+    opacity: 1;
+  }
 }

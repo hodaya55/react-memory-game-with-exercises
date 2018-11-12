@@ -1,8 +1,12 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
-  background: #df8f0a99;
-  background: url('background-game.png') no-repeat;
+  font-family: arial, sans-serif;
+  /* background: #df8f0a99; */
+  /* background: url('background-game.png') no-repeat; */
+  background-image: url('Wood-Background.jpg');
   background-size: cover;
+  color: white;
+  background-repeat: round;
+  background-attachment: fixed;
 }

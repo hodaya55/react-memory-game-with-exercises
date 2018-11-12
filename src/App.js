@@ -85,18 +85,19 @@ class App extends Component {
             this.state.isStartGame ?
             <div>
               <Timer timer={this.props.timer} isWin={this.state.isWin} checkTimerOver={this.checkTimerOver} />
-              <Exercises isStartGame={this.state.isStartGame} count={this.props.count} checkWin={this.checkWin} />
-              <CardsBoard cards={this.state.cards} isStartGame={this.state.isStartGame} checkWin={this.checkWin} />
+              <div className="container-games">
+                <Exercises isStartGame={this.state.isStartGame} count={this.props.count} checkWin={this.checkWin} />
+                <CardsBoard cards={this.state.cards} isStartGame={this.state.isStartGame} checkWin={this.checkWin} />
+              </div>
             </div>
             :
-            this.state.isWin && <div className="win-message">You win!!! ツ </div>
+            this.state.isWin && <div className="win-message">YOU WIN! ツ </div>
         }
         {
-          (
-            // this.state.isTimerOver ||
+          (  // this.state.isTimerOver ||
             !this.state.isStartGame) &&
           <div>
-            <p className="need-solve">You need to solve the memory game and solve {this.props.count} exercises in {this.props.timer}{this.props.timer == "1" ? " minute" : " minutes"}. Go!</p>
+            <p className="need-solve">You need to solve the memory game and solve {this.props.count} exercises in {this.props.timer}{this.props.timer === "1" ? " minute" : " minutes"}.</p>
             <h1 className="header-play-game" >Start Playing Now!</h1>
           </div>
         }
@@ -104,7 +105,7 @@ class App extends Component {
           this.state.isTimerOver &&
           <div className="timer-over">
             sorry, you loose! ¯\_(ツ)_/¯
-            <p className="need-solve">You need to solve the memory game and solve {this.props.count} exercises in {this.props.timer}{this.props.timer == "1" ? " minute" : " minutes"}. Go!</p>
+            <p className="need-solve">You need to solve the memory game and solve {this.props.count} exercises in {this.props.timer}{this.props.timer === "1" ? " minute" : " minutes"}.</p>
           </div>
         }
 

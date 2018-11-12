@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import _ from 'lodash';
+// import _ from 'lodash';
 import Card from './Card';
 
 const stateGameEnum = { waitFirstCard: "Waiting first card", waitSecondCard: "Waiting second card", wrong: "Wrong!" }
@@ -17,10 +17,11 @@ export default class CardsBoard extends Component {
 
   clickCard = (card, index) => {
     let cards = this.state.cardsList;
+    //* if the card isnt flipped yet
     if (!card.flipped) {
       switch (this.state.stateGame) {
         case stateGameEnum.waitFirstCard:
-          // save the first card that clicked, change the stateGame and flipp the first card
+          //* save the first card that clicked, change the stateGame and flipp the first card
           cards = cards.map((c, i) => { if (i === index) { c.flipped = true; } return c; });
           this.setState(() => {
             return { cardsList: cards, stateGame: stateGameEnum.waitSecondCard, firstCard: card };
@@ -28,7 +29,7 @@ export default class CardsBoard extends Component {
           break;
         case stateGameEnum.waitSecondCard:
           cards = cards.map((c, i) => { if (i === index) { c.flipped = true; } return c; });
-          // check if the two cards are equal
+          //* check if the two cards are equal
           if (card.name === this.state.firstCard.name) {
             this.finishCount--;
             this.setState(() => {
@@ -41,11 +42,11 @@ export default class CardsBoard extends Component {
 
           }
           else {
-            // to  flipp the second card
+            //* to flipp the second card
             this.setState(() => {
               return { cardsList: cards, stateGame: stateGameEnum.wrong };
             });
-            // wrong - flipp back the two wrong open cards
+            //* wrong - flipp back the two wrong open cards after 1200 milisec
             setTimeout(() => {
               let first = this.state.firstCard;
               let second = card;
