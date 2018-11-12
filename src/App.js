@@ -17,6 +17,7 @@ class App extends Component {
     this.math = false;
     this.isTimerOver = false;
   }
+
   startGame = () => {
     console.log("start new game");
     let cards1 = this.createCardsArray();
@@ -45,6 +46,7 @@ class App extends Component {
 
     }
   }
+
   createCardsArray = () => {
     const tempArray = _.shuffle(listImgSrc);
     let cardsArray = [];
@@ -55,30 +57,15 @@ class App extends Component {
     //* random the cards array
     return _.shuffle(cardsArray);
   }
+
   checkTimerOver = () => {
-    // this.isTimerOver = true;
     this.setState({ isTimerOver: true });
   }
+
   render() {
     return (
       <div className="App">
-        <button className="start-btn" onClick={this.startGame}>Start New Game</button>
-        {/* <p className="need-solve">You need to solve the memory game and solve {this.props.count} exercises in {this.props.timer} minuts. Go!</p> */}
-        {/* {this.state.isStartGame ?
-          <div>
-            <Timer timer={this.props.timer} isWin={this.state.isWin} />
-            <Exercises isStartGame={this.state.isStartGame} count={this.props.count} checkWin={this.checkWin} />
-            <CardsBoard cards={this.state.cards} isStartGame={this.state.isStartGame} checkWin={this.checkWin} />
-          </div>
-          :
-          (this.state.isWin) ? <div className="win-message">You win!!! ツ </div>
-            :
-            <div>
-              <p className="need-solve">You need to solve the memory game and solve {this.props.count} exercises in {this.props.timer} minuts. Go!</p>
-              <h1 className="header-play-game" >Start Playing Now!</h1>
-            </div>
-        } */}
-
+        <button className="start-btn" onClick={this.startGame}>Start New Game ►</button>
         {
           // !this.state.isWin &&
           !this.state.isTimerOver &&
@@ -97,15 +84,15 @@ class App extends Component {
           (  // this.state.isTimerOver ||
             !this.state.isStartGame) &&
           <div>
-            <p className="need-solve">You need to solve the memory game and solve {this.props.count} exercises in {this.props.timer}{this.props.timer === "1" ? " minute" : " minutes"}.</p>
+            <p className="need-solve">You need to solve the memory game and solve {this.props.count} exercises in {this.props.timer}{this.props.timer === 1 ? " minute" : " minutes"}.</p>
             <h1 className="header-play-game" >Start Playing Now!</h1>
           </div>
         }
         {
           this.state.isTimerOver &&
           <div className="timer-over">
-            sorry, you loose! ¯\_(ツ)_/¯
-            <p className="need-solve">You need to solve the memory game and solve {this.props.count} exercises in {this.props.timer}{this.props.timer === "1" ? " minute" : " minutes"}.</p>
+            Sorry, you loose! ¯\_(ツ)_/¯
+            {/* <p className="need-solve">You need to solve the memory game and solve {this.props.count} exercises in {this.props.timer}{this.props.timer === 1 ? " minute" : " minutes"}.</p> */}
           </div>
         }
 
