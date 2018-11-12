@@ -6,8 +6,7 @@ Using JavaScript(ES6), CSS3.
 Please follow the steps below to get this site set up for local development.
 
 - Clone the project in cmd<br>
- ```git clone https://github.com/hodaya55/react-memory-game-with-exercises.git``` </br>
-  and navigate to the project folder .
+ ```git clone https://github.com/hodaya55/react-memory-game-with-exercises.git``` 
 - Install the node modules (all the dependencies) by navigate to the project folder in cmd : </br>
   ```cd react-memory-game-with-exercises``` </br>
    and type: </br>
